@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useContent } from "@croct/plug-react";
 
-function App() {
-  const [count, setCount] = useState(0)
+type ContentType = {
+  title: string;
+  subtitle: string;
+  cta: {
+    label: string;
+    link: string;
+  };
+};
 
+export function App() {
+  const content = useContent("homepage-hero", {
+    initial: null,
+    fallback: {
+      title: "Your static title",
+      subtitle: "Your static subtitle",
+      cta: "Your static CTA",
+    },
+  }) as ContentType | null;
+
+  if (content === null) {
+    return <div>🪄 Personalizing...</div>;
+  }
+  console.log(content);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div id="hero-banner">
+      <h1>{content.title}</h1>
+      <p className="subtitle">{content.subtitle}</p>
+      <a className="cta" href={content.cta.link}>
+        {content.cta.label}
+      </a>
+    </div>
+  );
 }
-
-export default App
