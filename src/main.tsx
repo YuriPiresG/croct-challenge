@@ -1,10 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { App } from "./App.tsx";
+import { CroctProvider } from "@croct/plug-react";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+console.log(import.meta.env.VITE_CLIENT_ID);
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <CroctProvider appId={import.meta.env.VITE_CLIENT_ID}>
+      <App />
+    </CroctProvider>
+  </React.StrictMode>
+);
