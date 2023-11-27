@@ -6,6 +6,7 @@ type ContentType = {
   cta: {
     label: string;
     link: string;
+    banner: string;
   };
 };
 
@@ -22,14 +23,26 @@ export function App() {
   if (content === null) {
     return <div>🪄 Personalizing...</div>;
   }
-  console.log(content);
+  if (content) console.log(content);
   return (
-    <div id="hero-banner">
-      <h1>{content.title}</h1>
-      <p className="subtitle">{content.subtitle}</p>
-      <a className="cta" href={content.cta.link}>
-        {content.cta.label}
-      </a>
+    <div className="h-screen w-screen flex justify-center items-center ">
+      <div className="flex flex-col p-5 border border-red-950 justify-center items-center rounded-md  text-center gap-12 bg-indigo-600 text-white w-[50rem]">
+        <h1 className="text-3xl font-inter">{content.title}</h1>
+        <p className="text-xl font-inter">{content.subtitle}</p>
+        <div className="flex justify-center items-center gap-4">
+          <img
+            className="rounded-xl w-[10rem] h-[10rem] border"
+            src={content.cta.banner}
+            alt="Croct image"
+          />
+          <a
+            className="border rounded-xl bg-black font-bold hover:bg-gray-700 w-32 font-inter"
+            href={content.cta.link}
+          >
+            {content.cta.label}
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
